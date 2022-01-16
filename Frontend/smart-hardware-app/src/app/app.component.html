@@ -1,0 +1,132 @@
+<style>
+  mat-card.product {
+    max-width: 200px;
+    margin: 4px;
+  }
+
+  mat-card.banner {
+    margin: 1em;
+    background-image: url("https://www.fivenumber.com/wp-content/uploads/2017/08/Header.png");
+  }
+
+  input {
+    margin: 2em;
+  }
+
+  header {
+    height: 50px;
+  }
+
+  mat-grid-list {
+    flex-grow: 1;
+    overflow: auto;
+  }
+
+  mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .center-header {
+    margin: auto;
+  }
+
+  section.left {
+    float: left;
+    width: 74%;
+  }
+
+  section.right {
+    float: right;
+    width: 24%;
+    height: 100vh;
+    padding-top: 30px;
+  }
+
+  p.product {
+    color: black;
+  }
+
+  p.price {
+    color: black;
+    font-weight: lighter;
+  }
+
+  ::placeholder {
+    color: black;
+    opacity: 1;
+    /* Firefox */
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: black;
+  }
+
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: black;
+  }
+</style>
+
+<mat-toolbar color="primary" class="fixed">
+  <h1 class="center-header">Smart Hardware Shop</h1>
+</mat-toolbar>
+<section>
+  <section class="left">
+    <section>
+      <mat-card class="banner">
+        <mat-card-header>
+          <mat-card-title>News / Banner</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          Wonderfull news
+        </mat-card-content>
+      </mat-card>
+    </section>
+    <section>
+      <input type="text" matInput placeholder="Search" (keypress)="searchTextChanged($event)">
+      <mat-grid-list cols="3" rowHeight="2:2">
+        <div *ngFor="let item of products$|async">
+          <mat-grid-tile>
+            <mat-card class="product">
+              <mat-card-header>
+                <mat-card-title>{{ item.name }}</mat-card-title>
+              </mat-card-header>
+              <img mat-card-md-image src="{{ item.thumbnailData }}">
+              <mat-card-content>
+                {{ item.description }}
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button (click)="addProduct(item)">Add to cart</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+        </div>
+      </mat-grid-list>
+    </section>
+  </section>
+  <section class="right">
+    <header>
+      <h2>Checkout <span>
+          <button mat-button color="warn" (click)="removeAll()">Empty</button>
+        </span></h2>
+    </header>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of checkoutList;let indexOfelement=index;">
+        <div mat-line>
+          <p class="product">{{item.name}}</p>
+        </div>
+        <div mat-line>
+          <p class="price">Price {{item.price}} NOK</p>
+        </div>
+        <button mat-mini-fab mat-icon-button color="warn" aria-label="Remove from checkout list"
+          (click)="removeProduct(indexOfelement)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </section>
+</section>
