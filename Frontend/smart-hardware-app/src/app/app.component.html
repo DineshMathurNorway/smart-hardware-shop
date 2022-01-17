@@ -9,6 +9,11 @@
     background-image: url("https://www.fivenumber.com/wp-content/uploads/2017/08/Header.png");
   }
 
+  mat-divider {
+    border-top-color: black;
+    border-top-width: 2px;
+  }
+
   input {
     margin: 2em;
   }
@@ -72,7 +77,7 @@
 </style>
 
 <mat-toolbar color="primary" class="fixed">
-  <h1 class="center-header">Smart Hardware Shop</h1>
+  <h1 class="center-header">{{title}}</h1>
 </mat-toolbar>
 <section>
   <section class="left">
@@ -128,5 +133,7 @@
         </button>
       </mat-list-item>
     </mat-list>
+    <mat-divider></mat-divider>
+    <h3>Total = {{totalPrice}}</h3>
   </section>
 </section>
